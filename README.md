@@ -2,6 +2,9 @@
 
 *Igor Dutra Cavalcante, 19 de agosto de 2020*
 
+### Overview
+This is the final project of the Practical Machine Learning course. The goal is to predict the manner in which they did the exercise, through the other variables.
+
 ### Dados iniciais (Initial data)
 The training data for this project are available here:
 https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
@@ -25,11 +28,13 @@ First, we must download and clean the data.
 treino <- read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv", header = T, stringsAsFactors = F) 
 teste  <- read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv", header = T, stringsAsFactors = F)
 dim(treino)
+# [1] 19622   160
 dim(teste)
+# [1]  20 160
 head(treino)
 str(treino)
 ```
-
+To optimize, variables deemed to have a low potential for predictive value were removed.
 ### Limpeza dos dados (Cleaning data)
 ```{r}
 treino <- treino[, -nearZeroVar(treino)]
