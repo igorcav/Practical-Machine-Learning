@@ -58,7 +58,7 @@ cor(treino[,-ncol(treino)]) %>%
   corrplot(type="upper", order="hclust", col=brewer.pal(n=8, name="RdYlBu"))
 ```
 
-![Correlation] (/home/quarteto/Downloads/Correlacao.jpeg)  
+![Correlation] (~/Correlacao.jpeg)  
   
 The cross-validation method was then used. This method separates the training data (70%) and validation (30%), allowing for better model validation.
 ### Divisão (Partioning)
@@ -76,7 +76,7 @@ pred_gbm <- predict(mod_gbm, validacao)
 confMatrix <- confusionMatrix(validacao$classe, pred_gbm)
 ```
 
-![Accuracy] (/home/quarteto/Downloads/Acuracia.jpeg) 
+![Accuracy] (~/Acuracia.jpeg) 
 
 Once the model has been trained, the validation shows an accuracy of approximately 96%. This implies an error of approximately 3.6%. That is, the model, when trying to predict classes, has this chance to make a mistake. It should be noted, as shown in the graph below, that this error is evenly distributed across classes.
 ```{r}
