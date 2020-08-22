@@ -9,6 +9,9 @@ output: html_document
 
 *Igor Dutra Cavalcante, 19 de agosto de 2020*
 
+### Overview
+This is the final project of the Practical Machine Learning course. The goal is to predict the manner in which they did the exercise, through the other variables.
+
 ### Dados iniciais (Initial data)
 The training data for this project are available here:
 https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
@@ -25,18 +28,19 @@ library(dplyr)
 library(corrplot)
 library(RColorBrewer)
 ```
-
 First, we must download and clean the data.
 ### Leitura dos dados (Reading data)
 ```{r}
 treino <- read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv", header = T, stringsAsFactors = F) 
 teste  <- read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv", header = T, stringsAsFactors = F)
 dim(treino)
+# [1] 19622   160
 dim(teste)
+# [1]  20 160
 head(treino)
 str(treino)
 ```
-
+To optimize, variables deemed to have a low potential for predictive value were removed.
 ### Limpeza dos dados (Cleaning data)
 ```{r}
 treino <- treino[, -nearZeroVar(treino)]
@@ -47,7 +51,6 @@ treino <- select(treino, -c(X, user_name, raw_timestamp_part_1, raw_timestamp_pa
 teste  <- select(teste, -c(X, user_name, raw_timestamp_part_1, raw_timestamp_part_2, cvtd_timestamp, num_window))
 treino$classe <- as.factor(treino$classe)
 ```
-
 Once the data is clean and the features with no predictive value are discarded, we will check the correlation strength between the remaining features.
 ### Correlação (Correlation)
 ```{r}
@@ -65,7 +68,6 @@ emTreino   <- createDataPartition(treino$classe, p = 0.70, list = FALSE)
 validacao  <- treino[-emTreino, ]
 treino     <- treino[emTreino, ]
 ```
-
 The model was then trained using the Generalized Boosted Model method.
 ### Predição com método GBM (Prediction with GBM method)
 ```{r}
@@ -81,10 +83,8 @@ Once the model has been trained, the validation shows an accuracy of approximate
 confMatrix$table %>%
   plot(main = paste("Method GBM\nAccuracy:", confMatrix$overall['Accuracy']), col="orange")
 ```
-
 Finally, let's test the model in the test cases:
 ```{r}
 predict(mod_gbm, teste)
 # [1] B A B A A E D B A A B C B A E E A B B B
 ```
-
