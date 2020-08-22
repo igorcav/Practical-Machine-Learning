@@ -6,11 +6,13 @@ library(corrplot)
 library(RColorBrewer)
 
 ### Leitura dos dados (Reading data)
-setwd("/home/quarteto/Downloads")
+setwd("~/Downloads")
 treino <- read.csv("pml-training.csv", header = T, stringsAsFactors = F) 
 teste  <- read.csv("pml-testing.csv", header = T, stringsAsFactors = F)
 dim(treino)
+# [1] 19622   160
 dim(teste)
+# [1]  20 160
 head(treino)
 str(treino)
 
@@ -36,12 +38,15 @@ treino     <- treino[emTreino, ]
 ### Predição com método GBM (Prediction with GBM method)
 mod_gbm  <- train(classe ~., data = treino, method = "gbm")
 pred_gbm <- predict(mod_gbm, validacao)
-confMatrix <- confusionMatrix(validacao$classe, pred_gbm)
+conf_matrix_gbm <- confusionMatrix(validacao$classe, pred_gbm)
 
 ### Acurácia do modelo (Model accuracy)
-confMatrix$table %>%
-  plot(main = paste("Method GBM\nAccuracy:", confMatrix$overall['Accuracy']), col="orange")
+conf_matrix_gbm$table %>%
+  plot(main = paste("Method GBM\nAccuracy:", round(conf_matrix_gbm$overall['Accuracy'], 4)), col="orange")
 
 ### Predição do modelo (Model prediction)
 predict(mod_gbm, teste)
 # [1] B A B A A E D B A A B C B A E E A B B B
+
+rmarkdown::render('ml_pf.Rmd', output_file='output.html')
+rmarkdown::render('ml_pf.Rmd', output_file='ml_pf.md')
