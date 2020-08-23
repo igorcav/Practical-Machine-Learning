@@ -203,8 +203,12 @@ hr {
 <body>
 <h1>Practical Machine Learning - Coursera Final Project</h1>
 
-<p><em>Igor Dutra Cavalcante, 19 de agosto de 2020</em></p>
+<p><em>Igor Dutra Cavalcante, 22 de agosto de 2020</em></p>
 
+<h3>Overview</h3>
+
+<p>This is the final project of the Practical Machine Learning course. The goal is to predict the manner in which they did the exercise, through the other variables.</p>
+  
 <h3>Dados iniciais (Initial data)</h3>
 
 <p>The training data for this project are available here:
@@ -230,11 +234,14 @@ library(RColorBrewer)
 <pre><code class="r">treino &lt;- read.csv(&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&quot;, header = T, stringsAsFactors = F) 
 teste  &lt;- read.csv(&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&quot;, header = T, stringsAsFactors = F)
 dim(treino)
+# [1] 19622   160
 dim(teste)
+# [1]  20 160
 head(treino)
 str(treino)
 </code></pre>
 
+<p>To optimize, variables deemed to have a low potential for predictive value were removed.</p>
 <h3>Limpeza dos dados (Cleaning data)</h3>
 
 <pre><code class="r">treino &lt;- treino[, -nearZeroVar(treino)]
