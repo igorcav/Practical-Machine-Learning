@@ -1,6 +1,6 @@
 # Practical Machine Learning - Coursera Final Project
 
-*Igor Dutra Cavalcante, 19 de agosto de 2020*
+*Igor Dutra Cavalcante, 22 de agosto de 2020*
 
 ### Overview
 This is the final project of the Practical Machine Learning course. The goal is to predict the manner in which they did the exercise, through the other variables.
